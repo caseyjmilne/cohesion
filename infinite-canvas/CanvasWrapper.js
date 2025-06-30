@@ -3,7 +3,8 @@ import Breakpoint from './Breakpoint.js';
 
 export default {
   components: { Breakpoint },
-  setup() {
+  props: ['selectionRect'],
+  setup(props) {
     const scale = inject('scale');
     const setScale = inject('setScale');
 
@@ -35,7 +36,6 @@ export default {
         linear-gradient(90deg, #ddd 1px, transparent 1px)
       `,
       backgroundSize: '40px 40px',
-      border: '2px solid red',
     }));
 
     function startPan(e) {
@@ -133,6 +133,7 @@ export default {
       droppedTags,
       onDragOver,
       onDrop,
+      selectionRect: computed(() => props.selectionRect), // make reactive if needed
     };
   },
   template: `
@@ -149,6 +150,19 @@ export default {
       @drop="onDrop"
     >
       <Breakpoint />
+      <!-- Global selection overlay -->
+      <div
+        v-if="selectionRect"
+        :style="{
+          position: 'absolute',
+          top: selectionRect.top + 'px',
+          left: selectionRect.left + 'px',
+          width: selectionRect.width + 'px',
+          height: selectionRect.height + 'px',
+          border: '5px solid #4A90E2',
+          zIndex: 9999,
+        }"
+      ></div>
     </div>
   `,
 };

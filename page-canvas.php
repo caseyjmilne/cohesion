@@ -21,10 +21,9 @@
         height: 100000px;
         transform-origin: 0 0;
         background-image:
-            linear-gradient(#ddd 1px, transparent 1px),
-            linear-gradient(90deg, #ddd 1px, transparent 1px);
+          linear-gradient(#ddd 1px, transparent 1px),
+          linear-gradient(90deg, #ddd 1px, transparent 1px);
         background-size: 40px 40px;
-        border: 2px solid red;
     }
 
     #footer-panel {
@@ -76,10 +75,19 @@
 
       // Provide a function to update selectionRect, clearing old selection
       function makeSelection(rect) {
-        // Clear previous selection before setting new
+        const canvasContent = document.querySelector('.canvas-content');
+        const canvasRect = canvasContent.getBoundingClientRect();
+        const currentScale = scale.value;
+
+        const box = {
+          top: (rect.top - canvasRect.top) / currentScale - 5,
+          left: (rect.left - canvasRect.left) / currentScale - 5,
+          width: rect.width / currentScale,
+          height: (rect.height / currentScale) * 0.5,
+        };
+
         selectionRect.value = null;
-        // Next tick or immediately set new rect
-        selectionRect.value = rect;
+        selectionRect.value = box;
       }
       provide('makeSelection', makeSelection);
 
@@ -90,25 +98,9 @@
     },
     template: `
       <div style="position: relative; height: 100vh; width: 100vw;">
-        <CanvasWrapper />
+        <CanvasWrapper :selectionRect="selectionRect" />
         <FooterPanel />
         <HeaderPanel />
-
-        <!-- Global selection overlay -->
-        <div
-          v-if="selectionRect"
-          :style="{
-            position: 'fixed',
-            top: selectionRect.top + 'px',
-            left: selectionRect.left + 'px',
-            width: selectionRect.width + 'px',
-            height: selectionRect.height + 'px',
-            border: '1px solid #4A90E2',
-            pointerEvents: 'none',
-            boxSizing: 'border-box',
-            zIndex: 9999,
-          }"
-        ></div>
       </div>
     `,
   };
