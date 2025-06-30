@@ -44,6 +44,24 @@
       height: 40px;
     }
 
+    #left-panel {
+      background-color: black;
+      position: fixed;
+      top: 40px;
+      bottom: 60px;
+      left: 0;
+      width: 200px;
+    }
+
+    #right-panel {
+      background-color: black;
+      position: fixed;
+      top: 40px;
+      bottom: 60px;
+      right: 0;
+      width: 200px;
+    }
+
     .breakpoint {
       position: absolute;
       top: 50000px;
@@ -62,9 +80,11 @@
   import CanvasWrapper from '<?= get_template_directory_uri(); ?>/infinite-canvas/CanvasWrapper.js';
   import FooterPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/FooterPanel.js';
   import HeaderPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/HeaderPanel.js';
+  import LeftPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/LeftPanel.js';
+  import RightPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/RightPanel.js';
 
   const App = {
-    components: { CanvasWrapper, FooterPanel, HeaderPanel },
+    components: { CanvasWrapper, FooterPanel, HeaderPanel, LeftPanel, RightPanel },
     setup() {
       const scale = ref(1);
       const setScale = (value) => { scale.value = value; };
@@ -101,6 +121,8 @@
         <CanvasWrapper :selectionRect="selectionRect" />
         <FooterPanel />
         <HeaderPanel />
+        <LeftPanel />
+        <RightPanel />
       </div>
     `,
   };
