@@ -1,0 +1,1 @@
+<h1>Hello from Blade!</h1><?php /**PATH C:\Users\HP\Local Sites\cohesion2\app\public\wp-content\themes\cohesion\views/hello.blade.php ENDPATH**/ ?>

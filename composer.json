@@ -1,0 +1,11 @@
+{
+    "require": {
+        "jenssegers/blade": "^2.0",
+        "illuminate/view": "11.7.0",
+        "illuminate/events": "^11.45",
+        "illuminate/filesystem": "^11.45",
+        "illuminate/container": "^11.45",
+        "illuminate/support": "^11.45",
+        "illuminate/cache": "^11.45"
+    }
+}
