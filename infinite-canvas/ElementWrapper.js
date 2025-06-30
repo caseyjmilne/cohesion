@@ -26,19 +26,6 @@ export default {
   methods: {
     onMouseDown(e) {
       e.currentTarget.setAttribute('draggable', 'true');
-
-      // Calculate bounding rect on mousedown
-      const rect = e.currentTarget.getBoundingClientRect();
-
-      // Add 1px offset for border outside the element
-      this.selectedRect = {
-        top: rect.top - 1,
-        left: rect.left - 1,
-        width: rect.width + 2,
-        height: rect.height + 2,
-      };
-
-      // Emit selection event (optional)
       this.$emit('select', this.id);
     },
     onDragStart(e) {
