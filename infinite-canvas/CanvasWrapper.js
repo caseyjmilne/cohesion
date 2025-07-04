@@ -113,9 +113,7 @@ export default {
 
       // Insert a tag centered at 50000x, 50000y (canvas center)
       droppedTags.value.push({
-        id: Date.now(),
-        left: 50000,
-        top: 50000,
+        id: Date.now()
       });
     }
 

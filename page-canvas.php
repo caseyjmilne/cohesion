@@ -60,6 +60,7 @@
       bottom: 60px;
       right: 0;
       width: 200px;
+      color: white;
     }
 
     .breakpoint {
@@ -86,15 +87,20 @@
   const App = {
     components: { CanvasWrapper, FooterPanel, HeaderPanel, LeftPanel, RightPanel },
     setup() {
+
+      const droppedTags = ref([]); // initialize with an empty array
+      provide('droppedTags', droppedTags); // make it available to all descendants
+
       const scale = ref(1);
       const setScale = (value) => { scale.value = value; };
       provide('scale', scale);
       provide('setScale', setScale);
 
       const selectionRect = ref(null);
+      const selectedElement = ref(null);
 
       // Provide a function to update selectionRect, clearing old selection
-      function makeSelection(rect) {
+      function makeSelection(elementId, rect) {
         const canvasContent = document.querySelector('.canvas-content');
         const canvasRect = canvasContent.getBoundingClientRect();
         const currentScale = scale.value;
@@ -108,7 +114,12 @@
 
         selectionRect.value = null;
         selectionRect.value = box;
+
+        // Set selected element by ID. 
+        selectedElement.value = elementId;
       }
+
+      provide('selectedElement', selectedElement);
       provide('makeSelection', makeSelection);
 
       return {

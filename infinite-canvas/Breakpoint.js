@@ -1,10 +1,13 @@
+import { inject } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+
 import ElementWrapper from './ElementWrapper.js';
 
 export default {
   components: { ElementWrapper },
   data() {
+    const droppedTags = inject('droppedTags');
     return {
-      droppedTags: [],
+      droppedTags,
       nextId: 1,
     };
   },
@@ -98,6 +101,7 @@ export default {
         :key="tag.id"
         :id="tag.id"
         :tag="tag.tag"
+        :style="tag.style"
         :children="tag.children"
         @element-drop="onElementDrop"
         @add-child="onAddChild"

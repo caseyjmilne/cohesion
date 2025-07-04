@@ -1,21 +1,39 @@
-import { inject } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { inject, computed, watch } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 
 export default {
   name: 'ElementWrapper',
-  props: ['tag', 'id', 'children'],
+  props: ['tag', 'id', 'children', 'style'], // accepts per-element style
   emits: ['element-drop', 'add-child', 'select'],
-  setup() {
+  setup(props) {
     const makeSelection = inject('makeSelection');
-    return { makeSelection };
+
+    // Merge default styling with element-specific styles
+    const appliedStyle = computed(() => ({
+      minHeight: '40px',
+      backgroundColor: 'black',
+      color: 'white',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '2px',
+      position: 'relative',
+      padding: '4px',
+      ...(props.style || {})
+    }));
+
+    return {
+      makeSelection,
+      appliedStyle
+    };
   },
   methods: {
     onMouseDown(e) {
+      e.stopPropagation();
       console.log(`mousedown on element ${this.id}`);
       e.currentTarget.setAttribute('draggable', 'true');
       this.$emit('select', this.id);
 
       const rect = e.currentTarget.getBoundingClientRect();
-      this.makeSelection(rect);
+      this.makeSelection(this.id, rect);
     },
     onDragStart(e) {
       console.log(`dragstart from ${this.id}`);
@@ -37,7 +55,12 @@ export default {
         const newId = Date.now() + Math.random();
         this.$emit('add-child', {
           parentId: this.id,
-          child: { id: 'tag-' + newId, tag: 'section', children: [] }
+          child: {
+            id: 'tag-' + newId,
+            tag: 'section',
+            style: {}, // style lives directly on the element
+            children: []
+          }
         });
       }
     },
@@ -51,7 +74,7 @@ export default {
       @dragend="onDragEnd"
       @drop="onDrop"
       @dragover.prevent
-      style="min-height: 40px; background-color: black; color: white; display: flex; flex-direction: column; gap: 2px; position: relative; padding: 4px;"
+      :style="appliedStyle"
     >
       {{ id }}
 
@@ -60,6 +83,7 @@ export default {
         :key="child.id"
         :id="child.id"
         :tag="child.tag"
+        :style="child.style"
         :children="child.children"
         @element-drop="$emit('element-drop', $event)"
         @add-child="$emit('add-child', $event)"
