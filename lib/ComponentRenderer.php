@@ -4,10 +4,12 @@ class ComponentRenderer
 {
     protected $blade;
     protected $context = [];
+    protected $styleParser;
 
     public function __construct($blade_instance)
     {
         $this->blade = $blade_instance;
+        $this->styleParser = new StyleParser();
     }
 
     public function render(string $editor_output): ?string
@@ -73,6 +75,14 @@ class ComponentRenderer
         // Render children
         if (!empty($node['children'])) {
             $props['children'] = $this->renderChildren($node['children'], $localScope);
+        }
+
+        // Parse and add styles
+        if (!empty($node['style']) && is_array($node['style'])) {
+            $cssString = $this->styleParser->toCssString($node['style']);
+            if ($cssString) {
+                $props['styles'] = $cssString;
+            }
         }
 
         // Handle generic element

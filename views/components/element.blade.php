@@ -1,5 +1,3 @@
-@props(['tag' => 'div', 'children' => ''])
-
-<{{ $tag }} {{ $attributes }}>
-    {!! $children !!}
+<{{ $tag }} {!! isset($styles) ? 'style="' . e($styles) . '"' : '' !!}>
+    {!! $children ?? '' !!}
 </{{ $tag }}>

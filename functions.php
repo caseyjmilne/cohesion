@@ -25,6 +25,7 @@ add_action('after_setup_theme', function () {
 // Render editor output. 
 
 require_once( get_template_directory() . '/lib/ComponentRenderer.php' );
+require_once( get_template_directory() . '/lib/StyleParser.php' );
 
 
 
