@@ -79,10 +79,10 @@
   import { inject, ref, provide, watch } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
   import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
   import CanvasWrapper from '<?= get_template_directory_uri(); ?>/infinite-canvas/CanvasWrapper.js';
-  import FooterPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/FooterPanel.js';
-  import HeaderPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/HeaderPanel.js';
-  import LeftPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/LeftPanel.js';
-  import RightPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/RightPanel.js';
+  import FooterPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/components/panels/FooterPanel.js';
+  import HeaderPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/components/panels/HeaderPanel.js';
+  import LeftPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/components/panels/LeftPanel.js';
+  import RightPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/components/panels/RightPanel.js';
 
   const App = {
     components: { CanvasWrapper, FooterPanel, HeaderPanel, LeftPanel, RightPanel },

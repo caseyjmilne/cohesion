@@ -1,4 +1,4 @@
-import ExportTree from './components/ExportTree.js';
+import ExportTree from '../ExportTree.js';
 
 export default {
   components: {

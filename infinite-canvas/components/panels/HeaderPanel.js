@@ -1,4 +1,4 @@
-import ZoomDisplay from './ZoomDisplay.js';
+import ZoomDisplay from '../../ZoomDisplay.js';
 
 export default {
     components: { ZoomDisplay },

@@ -13,29 +13,14 @@ $renderer = new ComponentRenderer( $GLOBALS['blade'] );
 $lister = '
 [
   {
-    "id": "tag-mcqgjf3c-nbo61k",
+    "id": "tag-mcqi0rc0-gs5o66",
     "tag": "section",
     "component": "element",
     "style": {
-      "display": "inline",
-      "height": "200px"
+      "height": "400px",
+      "backgroundColor": "red"
     },
     "children": []
-  },
-  {
-    "id": "tag-mcqgmscj-mcvkaa",
-    "tag": "section",
-    "component": "element",
-    "style": {},
-    "children": [
-      {
-        "id": "tag-mcqgmwwk-fqnhra",
-        "tag": "section",
-        "component": "element",
-        "style": {},
-        "children": []
-      }
-    ]
   }
 ]
 ';

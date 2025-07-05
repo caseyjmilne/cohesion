@@ -1,13 +1,15 @@
 import { inject, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { useElementFactory } from './composables/useElementFactory.js';
+import { useTextFactory } from './composables/useTextFactory.js';
 
 export default {
   name: 'ElementWrapper',
-  props: ['tag', 'id', 'children', 'style'],
+  props: ['tag', 'id', 'children', 'style', 'props'],
   emits: ['element-drop', 'add-child', 'select'],
   setup(props) {
     const makeSelection = inject('makeSelection');
     const { createElement } = useElementFactory();
+    const { createTextElement } = useTextFactory();
 
     const appliedStyle = computed(() => ({
       minHeight: '40px',
@@ -25,6 +27,7 @@ export default {
       makeSelection,
       appliedStyle,
       createElement,
+      createTextElement,
     };
   },
   methods: {
@@ -54,6 +57,12 @@ export default {
           parentId: this.id,
           child: newElement,
         });
+      } else if (newTag === 'text') {
+        const newText = this.createTextElement('Sample text');
+        this.$emit('add-child', {
+          parentId: this.id,
+          child: newText,
+        });
       }
     },
   },
@@ -68,7 +77,7 @@ export default {
       @dragover.prevent
       :style="appliedStyle"
     >
-      {{ id }}
+      {{ props?.text }}
 
       <ElementWrapper
         v-for="child in children || []"
@@ -77,6 +86,7 @@ export default {
         :tag="child.tag"
         :style="child.style"
         :children="child.children"
+        :props="child.props"
         @element-drop="$emit('element-drop', $event)"
         @add-child="$emit('add-child', $event)"
         @select="$emit('select', $event)"

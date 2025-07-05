@@ -1,19 +1,22 @@
 import { inject } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { useElementFactory } from './composables/useElementFactory.js';
+import { useTextFactory } from './composables/useTextFactory.js';
 import ElementWrapper from './ElementWrapper.js';
 
 export default {
   components: { ElementWrapper },
+
   data() {
     const droppedTags = inject('droppedTags');
-    return {
-      droppedTags,
-    };
+    return { droppedTags };
   },
+
   setup() {
     const { createElement } = useElementFactory();
-    return { createElement };
+    const { createTextElement } = useTextFactory();
+    return { createElement, createTextElement };
   },
+
   methods: {
     onDragOver(e) {
       e.preventDefault();
@@ -22,17 +25,18 @@ export default {
     onDrop(e) {
       e.preventDefault();
       const type = e.dataTransfer.getData('text/plain');
+
       if (type === 'tag') {
         this.droppedTags.push(this.createElement('section'));
+      } else if (type === 'text') {
+        this.droppedTags.push(this.createTextElement('Sample text'));
       }
     },
 
     onElementDrop({ draggedId, targetId }) {
       const findAndRemove = (nodes, id) => {
         for (let i = 0; i < nodes.length; i++) {
-          if (nodes[i].id === id) {
-            return nodes.splice(i, 1)[0];
-          }
+          if (nodes[i].id === id) return nodes.splice(i, 1)[0];
           if (nodes[i].children) {
             const result = findAndRemove(nodes[i].children, id);
             if (result) return result;
@@ -81,16 +85,13 @@ export default {
   },
 
   template: `
-    <div
-      class="breakpoint"
-      @dragover="onDragOver"
-      @drop="onDrop"
-    >
+    <div class="breakpoint" @dragover="onDragOver" @drop="onDrop">
       <ElementWrapper
         v-for="tag in droppedTags"
         :key="tag.id"
         :id="tag.id"
         :tag="tag.tag"
+        :props="tag.props"
         :style="tag.style"
         :children="tag.children"
         @element-drop="onElementDrop"
