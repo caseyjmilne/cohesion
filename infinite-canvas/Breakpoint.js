@@ -80,16 +80,6 @@ export default {
       insertChild(this.droppedTags);
     },
   },
-
-  watch: {
-    droppedTags: {
-      deep: true,
-      handler(newVal) {
-        console.log('Tree changed:', JSON.stringify(newVal, null, 2));
-      },
-    },
-  },
-
   template: `
     <div
       class="breakpoint"
