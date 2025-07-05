@@ -13,10 +13,29 @@ class ComponentRenderer
     public function render(string $editor_output): ?string
     {
         $tree = json_decode($editor_output, true);
-        if (json_last_error() !== JSON_ERROR_NONE || !is_array($tree) || empty($tree['component'])) {
+
+        if (json_last_error() !== JSON_ERROR_NONE || empty($tree)) {
             return null;
         }
-        return $this->renderNode($tree);
+
+        // If it's a list of nodes
+        if (array_keys($tree) === range(0, count($tree) - 1)) {
+            $html = '';
+            foreach ($tree as $node) {
+                if (!is_array($node) || empty($node['component'])) {
+                    continue;
+                }
+                $html .= $this->renderNode($node);
+            }
+            return $html;
+        }
+
+        // If it's a single node
+        if (is_array($tree) && !empty($tree['component'])) {
+            return $this->renderNode($tree);
+        }
+
+        return null;
     }
 
     protected function renderNode(array $node, array $localScope = []): string
@@ -44,7 +63,7 @@ class ComponentRenderer
             return $output;
         }
 
-        // Resolve props and bindings
+        // Resolve bindings
         $bindings = $props['bindings'] ?? [];
         foreach ($bindings as $key => $binding) {
             $props[$key] = $this->resolveBinding($binding, $localScope);
@@ -54,6 +73,12 @@ class ComponentRenderer
         // Render children
         if (!empty($node['children'])) {
             $props['children'] = $this->renderChildren($node['children'], $localScope);
+        }
+
+        // Handle generic element
+        if ($component === 'element') {
+            $props['tag'] = $node['tag'] ?? 'div'; // default fallback
+            return $this->blade->render('components.element', $props);
         }
 
         return $this->blade->render("components.$component", $props);

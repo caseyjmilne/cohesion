@@ -1,5 +1,5 @@
 import { inject } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-
+import { useElementFactory } from './composables/useElementFactory.js';
 import ElementWrapper from './ElementWrapper.js';
 
 export default {
@@ -8,23 +8,22 @@ export default {
     const droppedTags = inject('droppedTags');
     return {
       droppedTags,
-      nextId: 1,
     };
+  },
+  setup() {
+    const { createElement } = useElementFactory();
+    return { createElement };
   },
   methods: {
     onDragOver(e) {
-      e.preventDefault(); // allow drop
+      e.preventDefault();
     },
 
     onDrop(e) {
       e.preventDefault();
       const type = e.dataTransfer.getData('text/plain');
       if (type === 'tag') {
-        this.droppedTags.push({
-          id: 'tag-' + this.nextId++,
-          tag: 'section',
-          children: [],
-        });
+        this.droppedTags.push(this.createElement('section'));
       }
     },
 
@@ -80,6 +79,7 @@ export default {
       insertChild(this.droppedTags);
     },
   },
+
   template: `
     <div
       class="breakpoint"

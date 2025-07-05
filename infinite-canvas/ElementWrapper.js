@@ -1,13 +1,14 @@
-import { inject, computed, watch } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { inject, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { useElementFactory } from './composables/useElementFactory.js';
 
 export default {
   name: 'ElementWrapper',
-  props: ['tag', 'id', 'children', 'style'], // accepts per-element style
+  props: ['tag', 'id', 'children', 'style'],
   emits: ['element-drop', 'add-child', 'select'],
   setup(props) {
     const makeSelection = inject('makeSelection');
+    const { createElement } = useElementFactory();
 
-    // Merge default styling with element-specific styles
     const appliedStyle = computed(() => ({
       minHeight: '40px',
       backgroundColor: 'black',
@@ -17,26 +18,24 @@ export default {
       gap: '2px',
       position: 'relative',
       padding: '4px',
-      ...(props.style || {})
+      ...(props.style || {}),
     }));
 
     return {
       makeSelection,
-      appliedStyle
+      appliedStyle,
+      createElement,
     };
   },
   methods: {
     onMouseDown(e) {
       e.stopPropagation();
-      console.log(`mousedown on element ${this.id}`);
       e.currentTarget.setAttribute('draggable', 'true');
       this.$emit('select', this.id);
-
       const rect = e.currentTarget.getBoundingClientRect();
       this.makeSelection(this.id, rect);
     },
     onDragStart(e) {
-      console.log(`dragstart from ${this.id}`);
       e.dataTransfer.setData('element-id', this.id);
     },
     onDragEnd(e) {
@@ -47,20 +46,13 @@ export default {
       const draggedId = e.dataTransfer.getData('element-id');
       const newTag = e.dataTransfer.getData('text/plain');
 
-      console.log(`drop on ${this.id}`, { draggedId, newTag });
-
       if (draggedId && draggedId !== this.id) {
         this.$emit('element-drop', { targetId: this.id, draggedId });
       } else if (newTag === 'tag') {
-        const newId = Date.now() + Math.random();
+        const newElement = this.createElement('section');
         this.$emit('add-child', {
           parentId: this.id,
-          child: {
-            id: 'tag-' + newId,
-            tag: 'section',
-            style: {}, // style lives directly on the element
-            children: []
-          }
+          child: newElement,
         });
       }
     },

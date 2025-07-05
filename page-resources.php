@@ -11,32 +11,36 @@
 $renderer = new ComponentRenderer( $GLOBALS['blade'] );
 
 $lister = '
-{
-  "component": "ul",
-  "children": [
-    {
-      "component": "li",
-      "children": [
-        { "component": "text", "props": { "value": "Item 1" } }
-      ]
+[
+  {
+    "id": "tag-mcqgjf3c-nbo61k",
+    "tag": "section",
+    "component": "element",
+    "style": {
+      "display": "inline",
+      "height": "200px"
     },
-    {
-      "component": "li",
-      "children": [
-        { "component": "text", "props": { "value": "Item 2" } }
-      ]
-    },
-    {
-      "component": "li",
-      "children": [
-        { "component": "text", "props": { "value": "Item 3" } }
-      ]
-    }
-  ]
-}
-
+    "children": []
+  },
+  {
+    "id": "tag-mcqgmscj-mcvkaa",
+    "tag": "section",
+    "component": "element",
+    "style": {},
+    "children": [
+      {
+        "id": "tag-mcqgmwwk-fqnhra",
+        "tag": "section",
+        "component": "element",
+        "style": {},
+        "children": []
+      }
+    ]
+  }
+]
 ';
 
+echo '<!-- ED-TEST -->';
 echo $renderer->render( $lister );
 
 
