@@ -91,6 +91,12 @@ class ComponentRenderer
             return $this->blade->render('components.element', $props);
         }
 
+        if ($component === 'text') {
+            $props['tag'] = $node['tag'] ?? 'p'; // default fallback tag
+            $props['text'] = $props['text'] ?? ''; // pull from props (where it's actually stored)
+            return $this->blade->render('components.text', $props);
+        }
+
         return $this->blade->render("components.$component", $props);
     }
 

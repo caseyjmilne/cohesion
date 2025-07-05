@@ -13,12 +13,15 @@ $renderer = new ComponentRenderer( $GLOBALS['blade'] );
 $lister = '
 [
   {
-    "id": "tag-mcqi0rc0-gs5o66",
-    "tag": "section",
-    "component": "element",
+    "id": "text-mcqkrg8c-uefsnm",
+    "tag": "p",
+    "component": "text",
+    "props": {
+      "text": "What the heckfire?"
+    },
     "style": {
-      "height": "400px",
-      "backgroundColor": "red"
+      "backgroundColor": "green",
+      "height": "400px"
     },
     "children": []
   }
