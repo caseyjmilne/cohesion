@@ -33,9 +33,24 @@ export function useDroppedTags() {
     el.style[property] = value;
   }
 
+  // ✅ Add or merge props
+  function updateProps(elementId, newProps) {
+    const el = findById(elementId);
+    if (!el) {
+      console.warn(`Element with ID ${elementId} not found`);
+      return;
+    }
+
+    el.props = {
+      ...(el.props || {}),
+      ...newProps,
+    };
+  }
+
   return {
     droppedTags,
     findById,
-    updateStyle, // ✅ expose the new function
+    updateStyle,
+    updateProps, // ✅ expose the new function
   };
 }
