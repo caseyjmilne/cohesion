@@ -45,13 +45,13 @@ export default {
     };
   },
   template: `
-    <div v-if="selected" style="margin-top: 1rem;">
-      <label for="display">Display:</label>
+    <div class="coh-style-control">
+      <label class="coh-style-control__label" for="display">Display:</label>
       <select
         id="display"
         v-model="displayInput"
         @change="onDisplayChange"
-        style="width: 100%; padding: 4px; margin-top: 4px;"
+        class="coh-style-control__input"
       >
         <option value="">-- Unset --</option>
         <option v-for="option in displayOptions" :key="option" :value="option">
