@@ -51,6 +51,7 @@
       bottom: 60px;
       left: 0;
       width: 200px;
+      overflow-y: auto;
     }
 
     #right-panel {
@@ -61,6 +62,7 @@
       right: 0;
       width: 200px;
       color: white;
+      overflow-y: auto;
     }
 
     .breakpoint {

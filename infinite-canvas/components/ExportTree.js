@@ -17,10 +17,6 @@ export default {
     );
 
     function copyToClipboard() {
-
-        console.log('navigator.clipboard:')
-        console.log(navigator.clipboard)
-
         if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
             navigator.clipboard.writeText(jsonOutput.value)
             .then(() => alert('JSON copied to clipboard!'))
@@ -36,12 +32,12 @@ export default {
     };
   },
   template: `
-    <div style="margin-top: 2rem; background: #222; color: #ddd; padding: 1rem; border-radius: 4px;">
+    <div style="margin-top: 2rem; background: #222; color: #ddd; padding: 4px;">
       <h3>Export Tree</h3>
       <button @click="copyToClipboard" style="margin-bottom: 1rem; padding: 6px 12px; background: #444; color: white; border: none; border-radius: 4px; cursor: pointer;">
         Copy JSON to Clipboard
       </button>
-      <pre style="white-space: pre-wrap; word-break: break-word; background: #111; padding: 1rem; border-radius: 4px; max-height: 400px; overflow: auto;">
+      <pre style="white-space: pre-wrap; word-break: break-word; font-size: 11px; background: #111; border-radius: 4px;">
 {{ jsonOutput }}
       </pre>
     </div>

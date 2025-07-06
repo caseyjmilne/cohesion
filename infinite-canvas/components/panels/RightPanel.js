@@ -3,6 +3,7 @@ import StyleHeightControl from '../style_controls/StyleHeightControl.js';
 import StyleDisplayControl from '../style_controls/StyleDisplayControl.js';
 import StyleBackgroundColorControl from '../style_controls/StyleBackgroundColorControl.js';
 import TextContentControl from '../style_controls/TextContentControl.js';
+import StyleFontSizeControl from '../style_controls/StyleFontSizeControl.js';
 import { useDroppedTags } from '../../composables/useDroppedTags.js';
 
 export default {
@@ -11,6 +12,7 @@ export default {
     StyleDisplayControl,
     StyleBackgroundColorControl,
     TextContentControl,
+    StyleFontSizeControl,
   },
   setup() {
     const selectedElement = inject('selectedElement');
@@ -34,6 +36,7 @@ export default {
         <StyleDisplayControl />
         <StyleHeightControl />
         <StyleBackgroundColorControl />
+        <StyleFontSizeControl />
       </div>
       <div v-else>
         No element selected.
