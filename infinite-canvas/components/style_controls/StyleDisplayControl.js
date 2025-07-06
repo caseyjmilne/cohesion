@@ -46,14 +46,14 @@ export default {
   },
   template: `
     <div class="coh-style-control">
-      <label class="coh-style-control__label" for="display">Display:</label>
+      <label class="coh-style-control__label" for="display">Display</label>
       <select
         id="display"
         v-model="displayInput"
         @change="onDisplayChange"
         class="coh-style-control__input"
       >
-        <option value="">-- Unset --</option>
+        <option value=""></option>
         <option v-for="option in displayOptions" :key="option" :value="option">
           {{ option }}
         </option>

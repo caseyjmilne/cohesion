@@ -28,14 +28,15 @@ export default {
     };
   },
   template: `
-    <div v-if="selected">
-      <label for="text-content">Text Content:</label>
+    <div class="coh-style-control">
+      <label class="coh-style-control__label" for="text-content">Text Content</label>
       <textarea
         id="text-content"
         v-model="textInput"
         @input="onTextInput"
         placeholder="Enter text..."
-        style="width: 100%; padding: 4px; margin-top: 4px; min-height: 80px;"
+        style="min-height: 80px;"
+        class="coh-style-control__input"
       ></textarea>
     </div>
   `,
