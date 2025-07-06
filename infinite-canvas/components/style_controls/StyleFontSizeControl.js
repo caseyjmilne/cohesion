@@ -36,7 +36,7 @@ export default {
         type="text"
         v-model="fontSizeInput"
         @input="onFontSizeInput"
-         class="coh-style-control__input"
+        class="coh-style-control__input"
       />
     </div>
   `,

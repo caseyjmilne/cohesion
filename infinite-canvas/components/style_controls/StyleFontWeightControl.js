@@ -1,41 +1,41 @@
-// ./components/style_controls/StyleHeightControl.js
+// ./components/style_controls/StyleFontWeightControl.js
 import { computed, inject, watch, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { useDroppedTags } from '../../composables/useDroppedTags.js';
 
 export default {
-  name: 'StyleHeightControl',
+  name: 'StyleFontWeightControl',
   setup() {
     const selectedElement = inject('selectedElement');
     const { findById, updateStyle } = useDroppedTags();
     const selected = computed(() => findById(selectedElement.value));
 
-    const heightInput = ref('');
+    const fontWeightInput = ref('');
 
     watch(selected, (newVal) => {
-      heightInput.value = newVal?.style?.height || '';
+      fontWeightInput.value = newVal?.style?.fontWeight || '';
     });
 
-    function onHeightInput(e) {
+    function onFontWeightInput(e) {
       const value = e.target.value;
       if (selectedElement.value) {
-        updateStyle(selectedElement.value, 'height', value);
+        updateStyle(selectedElement.value, 'fontWeight', value);
       }
     }
 
     return {
       selected,
-      heightInput,
-      onHeightInput,
+      fontWeightInput,
+      onFontWeightInput,
     };
   },
   template: `
     <div class="coh-style-control">
-      <label class="coh-style-control__label" for="height">Height</label>
+      <label class="coh-style-control__label" for="font-weight">Font Weight</label>
       <input
-        id="height"
+        id="font-weight"
         type="text"
-        v-model="heightInput"
-        @input="onHeightInput"
+        v-model="fontWeightInput"
+        @input="onFontWeightInput"
         class="coh-style-control__input"
       />
     </div>

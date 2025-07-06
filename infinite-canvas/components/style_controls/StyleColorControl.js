@@ -1,41 +1,41 @@
-// ./components/style_controls/StyleHeightControl.js
+// ./components/style_controls/StyleColorControl.js
 import { computed, inject, watch, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { useDroppedTags } from '../../composables/useDroppedTags.js';
 
 export default {
-  name: 'StyleHeightControl',
+  name: 'StyleColorControl',
   setup() {
     const selectedElement = inject('selectedElement');
     const { findById, updateStyle } = useDroppedTags();
     const selected = computed(() => findById(selectedElement.value));
 
-    const heightInput = ref('');
+    const colorInput = ref('');
 
     watch(selected, (newVal) => {
-      heightInput.value = newVal?.style?.height || '';
+      colorInput.value = newVal?.style?.color || '';
     });
 
-    function onHeightInput(e) {
+    function onColorInput(e) {
       const value = e.target.value;
       if (selectedElement.value) {
-        updateStyle(selectedElement.value, 'height', value);
+        updateStyle(selectedElement.value, 'color', value);
       }
     }
 
     return {
       selected,
-      heightInput,
-      onHeightInput,
+      colorInput,
+      onColorInput,
     };
   },
   template: `
     <div class="coh-style-control">
-      <label class="coh-style-control__label" for="height">Height</label>
+      <label class="coh-style-control__label" for="font-color">Text Color</label>
       <input
-        id="height"
+        id="font-color"
         type="text"
-        v-model="heightInput"
-        @input="onHeightInput"
+        v-model="colorInput"
+        @input="onColorInput"
         class="coh-style-control__input"
       />
     </div>

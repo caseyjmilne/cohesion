@@ -28,15 +28,14 @@ export default {
     };
   },
   template: `
-    <div v-if="selected">
-      <label for="bg-color">Background Color:</label>
+    <div class="coh-style-control">
+      <label class="coh-style-control__label" for="bg-color">Background Color</label>
       <input
         id="bg-color"
         type="text"
         v-model="bgColorInput"
         @input="onBgColorInput"
-        placeholder="e.g. red or #ff0000"
-        style="width: 100%; padding: 4px; margin-top: 4px;"
+        class="coh-style-control__input"
       />
     </div>
   `,
