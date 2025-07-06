@@ -25,14 +25,10 @@ export default {
     };
   },
   template: `
-    <div id="right-panel" style="padding: 1rem; color: white;">
+    <div id="right-panel" class="coh-side-panel">
       <div v-if="selected">
         <p>Selected: {{ selected.id }}</p>
-
-        <!-- ✅ Text control, conditionally shown if component is "text" -->
         <TextContentControl v-if="selected.component === 'text'" />
-
-        <!-- ✅ Style controls -->
         <StyleDisplayControl />
         <StyleHeightControl />
         <StyleBackgroundColorControl />

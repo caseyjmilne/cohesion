@@ -1,0 +1,24 @@
+.coh-style-control {
+    margin: 0.5rem 0;
+}
+
+.coh-style-control__label {
+    display: block;
+    font-size: 11px;
+    font-family: sans-serif;
+    margin-bottom: 0;
+    line-height: 11px;
+}
+
+.coh-style-control__input {
+    background-color: rgb(40, 40, 40);
+    padding: 2px;
+    font-size: 11px;
+    width: 100%;
+    outline: none;
+}
+
+.coh-side-panel {
+    color: rgb(220, 220, 220);
+    padding: 0.5rem;
+}

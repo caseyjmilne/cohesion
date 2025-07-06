@@ -2,6 +2,7 @@
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('tailwind-style', get_template_directory_uri() . '/assets/output.css', [], null);
+    wp_enqueue_style('cohesion-editor-style', get_template_directory_uri() . '/infinite-canvas/editor.css', [], null);
 });
 
 // Blade configuration.

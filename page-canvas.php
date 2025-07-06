@@ -1,3 +1,8 @@
+<?php 
+  show_admin_bar(false);
+  get_header(); 
+?>
+
 <div id="infinite-canvas"></div>
 
 <style>
@@ -142,3 +147,5 @@
 
   createApp(App).mount('#infinite-canvas');
 </script>
+
+<?php get_footer(); ?>

@@ -29,15 +29,14 @@ export default {
     };
   },
   template: `
-    <div v-if="selected">
-      <label for="font-size">Font Size:</label>
+    <div class="coh-style-control">
+      <label class="coh-style-control__label" for="font-size">Font Size</label>
       <input
         id="font-size"
         type="text"
         v-model="fontSizeInput"
         @input="onFontSizeInput"
-        placeholder="e.g. 16px, 1rem, 120%"
-        style="width: 100%; padding: 4px; margin-top: 4px;"
+         class="coh-style-control__input"
       />
     </div>
   `,
