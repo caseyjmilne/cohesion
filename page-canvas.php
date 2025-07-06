@@ -5,83 +5,6 @@
 
 <div id="infinite-canvas"></div>
 
-<style>
-
-    html, body {
-        margin: 0; padding: 0; height: 100%; overflow: hidden;
-    }
-
-    #infinite-canvas {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    .canvas-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100000px;
-        height: 100000px;
-        transform-origin: 0 0;
-        background-image:
-          linear-gradient(#ddd 1px, transparent 1px),
-          linear-gradient(90deg, #ddd 1px, transparent 1px);
-        background-size: 40px 40px;
-    }
-
-    #footer-panel {
-      background-color: black;
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      height: 60px;
-    }
-
-    #header-panel {
-      background-color: black;
-      position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      height: 40px;
-    }
-
-    #left-panel {
-      background-color: black;
-      position: fixed;
-      top: 40px;
-      bottom: 60px;
-      left: 0;
-      width: 200px;
-      overflow-y: auto;
-    }
-
-    #right-panel {
-      background-color: black;
-      position: fixed;
-      top: 40px;
-      bottom: 60px;
-      right: 0;
-      width: 200px;
-      color: white;
-      overflow-y: auto;
-    }
-
-    .breakpoint {
-      position: absolute;
-      top: 50000px;
-      left: 50000px;
-      width: 640px;
-      height: 800px;
-      background-color: rgb(220,220,220);
-    }
-
-
-</style>
-
 <script type="module">
   import { inject, ref, provide, watch } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
   import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
@@ -94,9 +17,25 @@
   const App = {
     components: { CanvasWrapper, FooterPanel, HeaderPanel, LeftPanel, RightPanel },
     setup() {
+      const droppedTags = ref([]);
 
-      const droppedTags = ref([]); // initialize with an empty array
-      provide('droppedTags', droppedTags); // make it available to all descendants
+      const saved = localStorage.getItem('cohesion_editor_contents');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            droppedTags.value = parsed;
+          }
+        } catch (e) {
+          console.warn('Invalid saved editor contents');
+        }
+      }
+
+      provide('droppedTags', droppedTags);
+
+      watch(droppedTags, (newVal) => {
+        localStorage.setItem('cohesion_editor_contents', JSON.stringify(newVal));
+      }, { deep: true });
 
       const scale = ref(1);
       const setScale = (value) => { scale.value = value; };
@@ -106,7 +45,6 @@
       const selectionRect = ref(null);
       const selectedElement = ref(null);
 
-      // Provide a function to update selectionRect, clearing old selection
       function makeSelection(elementId, rect) {
         const canvasContent = document.querySelector('.canvas-content');
         const canvasRect = canvasContent.getBoundingClientRect();
@@ -121,8 +59,6 @@
 
         selectionRect.value = null;
         selectionRect.value = box;
-
-        // Set selected element by ID. 
         selectedElement.value = elementId;
       }
 

@@ -1,5 +1,6 @@
 import { inject, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import StyleHeightControl from '../style_controls/StyleHeightControl.js';
+import StyleFlexBasisControl from '../style_controls/StyleFlexBasisControl.js';
 import StyleDisplayControl from '../style_controls/StyleDisplayControl.js';
 import StyleBackgroundColorControl from '../style_controls/StyleBackgroundColorControl.js';
 import TextContentControl from '../style_controls/TextContentControl.js';
@@ -12,6 +13,7 @@ import { useDroppedTags } from '../../composables/useDroppedTags.js';
 export default {
   components: {
     StyleHeightControl,
+    StyleFlexBasisControl,
     StyleDisplayControl,
     StyleBackgroundColorControl,
     TextContentControl,
@@ -37,6 +39,7 @@ export default {
         <TextContentControl v-if="selected.component === 'text'" />
         <StyleDisplayControl />
         <StyleHeightControl />
+        <StyleFlexBasisControl />
         <StyleBackgroundColorControl />
         <StyleFontSizeControl />
         <StyleFontWeightControl />

@@ -13,13 +13,9 @@ export default {
 
     const appliedStyle = computed(() => ({
       minHeight: '40px',
-      backgroundColor: 'black',
+      backgroundColor: 'rgb(150,150,150)',
       color: 'white',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '2px',
-      position: 'relative',
-      padding: '4px',
+      gap: '12px',
       ...(props.style || {}),
     }));
 
