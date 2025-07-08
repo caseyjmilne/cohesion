@@ -14,8 +14,6 @@ export default {
     const appliedStyle = computed(() => ({
       minHeight: '40px',
       backgroundColor: 'rgb(150,150,150)',
-      color: 'white',
-      gap: '12px',
       ...(props.style || {}),
     }));
 
