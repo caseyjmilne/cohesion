@@ -2,10 +2,11 @@ import { inject, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.j
 import StyleWidthControl from '../style_controls/StyleWidthControl.js';
 import StyleHeightControl from '../style_controls/StyleHeightControl.js';
 import StyleFlexBasisControl from '../style_controls/StyleFlexBasisControl.js';
-import StyleJustifyContentControl from '../style_controls/StyleJustifyContentControl.js'; // ✅ NEW
+import StyleJustifyContentControl from '../style_controls/StyleJustifyContentControl.js';
 import StyleDisplayControl from '../style_controls/StyleDisplayControl.js';
 import StylePositionControl from '../style_controls/StylePositionControl.js';
 import StyleBackgroundColorControl from '../style_controls/StyleBackgroundColorControl.js';
+import StyleBackgroundImageControl from '../style_controls/StyleBackgroundImageControl.js'; // ✅ NEW
 import TextContentControl from '../style_controls/TextContentControl.js';
 import StyleFontSizeControl from '../style_controls/StyleFontSizeControl.js';
 import StyleFontWeightControl from '../style_controls/StyleFontWeightControl.js';
@@ -22,10 +23,11 @@ export default {
     StyleWidthControl,
     StyleHeightControl,
     StyleFlexBasisControl,
-    StyleJustifyContentControl, // ✅ REGISTERED
+    StyleJustifyContentControl,
     StyleDisplayControl,
     StylePositionControl,
     StyleBackgroundColorControl,
+    StyleBackgroundImageControl, // ✅ REGISTERED
     TextContentControl,
     StyleFontSizeControl,
     StyleFontWeightControl,
@@ -67,7 +69,10 @@ export default {
           <StyleJustifyContentControl />
         </PanelSection>
 
-        <StyleBackgroundColorControl />
+        <PanelSection label="Background">
+          <StyleBackgroundColorControl />
+          <StyleBackgroundImageControl />
+        </PanelSection>
 
         <PanelSection label="Spacing">
           <StyleGapControl />

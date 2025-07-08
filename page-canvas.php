@@ -34,7 +34,31 @@
       provide('droppedTags', droppedTags);
 
       watch(droppedTags, (newVal) => {
-        localStorage.setItem('cohesion_editor_contents', JSON.stringify(newVal));
+        const json = JSON.stringify(newVal);
+
+        // Save locally
+        localStorage.setItem('cohesion_editor_contents', json);
+
+        // Save remotely
+        fetch('/wp-json/cohesion/v1/editor-save', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            editor_content: json,
+          }),
+        })
+        .then((res) => {
+          if (!res.ok) throw new Error('Failed to save remotely');
+          return res.json();
+        })
+        .then((data) => {
+          console.log('[Editor] Saved to server:', data);
+        })
+        .catch((err) => {
+          console.warn('[Editor] Remote save failed:', err.message);
+        });
       }, { deep: true });
 
       const scale = ref(1);
