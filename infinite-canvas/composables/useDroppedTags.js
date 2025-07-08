@@ -6,7 +6,7 @@ export function useDroppedTags() {
     throw new Error('droppedTags not provided');
   }
 
-  // Find element by ID recursively
+  // ✅ Find element by ID recursively
   function findById(id, node = droppedTags.value) {
     for (const el of node) {
       if (el.id === id) return el;
@@ -18,7 +18,7 @@ export function useDroppedTags() {
     return null;
   }
 
-  // ✅ Add or replace a single CSS property
+  // ✅ Update or add a style property
   function updateStyle(elementId, property, value) {
     const el = findById(elementId);
     if (!el) {
@@ -33,7 +33,7 @@ export function useDroppedTags() {
     el.style[property] = value;
   }
 
-  // ✅ Add or merge props
+  // ✅ Update or merge props
   function updateProps(elementId, newProps) {
     const el = findById(elementId);
     if (!el) {
@@ -47,10 +47,28 @@ export function useDroppedTags() {
     };
   }
 
+  // ✅ Delete an element by ID (and remove from children tree)
+  function deleteById(id, nodes = droppedTags.value) {
+    for (let i = nodes.length - 1; i >= 0; i--) {
+      const el = nodes[i];
+
+      if (el.id === id) {
+        nodes.splice(i, 1);
+        return true;
+      }
+
+      if (el.children && deleteById(id, el.children)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   return {
     droppedTags,
     findById,
     updateStyle,
-    updateProps, // ✅ expose the new function
+    updateProps,
+    deleteById, // ✅ exposed
   };
 }
