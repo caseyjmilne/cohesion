@@ -1,15 +1,22 @@
 import { inject, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-import { useElementFactory } from './composables/useElementFactory.js';
-import { useTextFactory } from './composables/useTextFactory.js';
+
+import ElementBlock from './components/user_components/Element.js';
+import TextBlock from './components/user_components/Text.js';
+import SvgBlock from './components/user_components/Svg.js'; // ✅ Add more blocks here as needed
+
+const blockMap = {
+  [ElementBlock.type]: ElementBlock,
+  [TextBlock.type]: TextBlock,
+  [SvgBlock.type]: SvgBlock,
+};
 
 export default {
   name: 'ElementWrapper',
   props: ['tag', 'id', 'children', 'style', 'props'],
   emits: ['element-drop', 'add-child', 'select'],
+
   setup(props) {
     const makeSelection = inject('makeSelection');
-    const { createElement } = useElementFactory();
-    const { createTextElement } = useTextFactory();
 
     const appliedStyle = computed(() => ({
       minHeight: '40px',
@@ -20,10 +27,9 @@ export default {
     return {
       makeSelection,
       appliedStyle,
-      createElement,
-      createTextElement,
     };
   },
+
   methods: {
     onMouseDown(e) {
       e.stopPropagation();
@@ -32,34 +38,36 @@ export default {
       const rect = e.currentTarget.getBoundingClientRect();
       this.makeSelection(this.id, rect);
     },
+
     onDragStart(e) {
       e.dataTransfer.setData('element-id', this.id);
     },
+
     onDragEnd(e) {
       e.currentTarget.removeAttribute('draggable');
     },
+
     onDrop(e) {
       e.stopPropagation();
+
       const draggedId = e.dataTransfer.getData('element-id');
-      const newTag = e.dataTransfer.getData('text/plain');
+      const newType = e.dataTransfer.getData('text/plain');
 
       if (draggedId && draggedId !== this.id) {
         this.$emit('element-drop', { targetId: this.id, draggedId });
-      } else if (newTag === 'tag') {
-        const newElement = this.createElement('section');
-        this.$emit('add-child', {
-          parentId: this.id,
-          child: newElement,
-        });
-      } else if (newTag === 'text') {
-        const newText = this.createTextElement('Sample text');
-        this.$emit('add-child', {
-          parentId: this.id,
-          child: newText,
-        });
+      } else if (newType) {
+        const block = blockMap[newType];
+        if (block && typeof block.create === 'function') {
+          const newElement = block.create();
+          this.$emit('add-child', {
+            parentId: this.id,
+            child: newElement,
+          });
+        }
       }
     },
   },
+
   template: `
     <component
       :is="tag"

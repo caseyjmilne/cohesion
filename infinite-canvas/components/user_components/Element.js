@@ -1,15 +1,11 @@
-export default {
+const Element = {
   name: 'Element',
+
   props: {
-    label: {
-      type: String,
-      default: 'TAG',
-    },
-    type: {
-      type: String,
-      default: 'tag', // used as drag data
-    },
+    label: { type: String, default: 'TAG' },
+    type:  { type: String, default: 'tag' },
   },
+
   template: `
     <div
       style="color: rgb(150,150,150); cursor: grab;"
@@ -20,6 +16,7 @@ export default {
       {{ label }}
     </div>
   `,
+
   methods: {
     onDragStart(e) {
       e.dataTransfer.effectAllowed = 'move';
@@ -31,3 +28,20 @@ export default {
     },
   },
 };
+
+// 🔧 Consistent ID generator
+Element.generateId = () =>
+  'tag-' + Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 8);
+
+// 🧱 Block factory
+Element.type = 'tag';
+Element.controls = ['background', 'spacing'];
+Element.create = (tag = 'section') => ({
+  id: Element.generateId(),
+  tag,
+  component: 'element',
+  style: {},
+  children: [],
+});
+
+export default Element;

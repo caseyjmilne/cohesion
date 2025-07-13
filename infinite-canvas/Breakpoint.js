@@ -1,6 +1,9 @@
 import { inject } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-import { useElementFactory } from './composables/useElementFactory.js';
-import { useTextFactory } from './composables/useTextFactory.js';
+
+import ElementBlock from './components/user_components/Element.js';
+import TextBlock from './components/user_components/Text.js';
+import SvgBlock from './components/user_components/Svg.js'; // ✅ NEW
+
 import ElementWrapper from './ElementWrapper.js';
 
 export default {
@@ -11,11 +14,7 @@ export default {
     return { droppedTags };
   },
 
-  setup() {
-    const { createElement } = useElementFactory();
-    const { createTextElement } = useTextFactory();
-    return { createElement, createTextElement };
-  },
+  setup() {},
 
   methods: {
     onDragOver(e) {
@@ -26,10 +25,12 @@ export default {
       e.preventDefault();
       const type = e.dataTransfer.getData('text/plain');
 
-      if (type === 'tag') {
-        this.droppedTags.push(this.createElement('section'));
-      } else if (type === 'text') {
-        this.droppedTags.push(this.createTextElement('Sample text'));
+      if (type === ElementBlock.type) {
+        this.droppedTags.push(ElementBlock.create());
+      } else if (type === TextBlock.type) {
+        this.droppedTags.push(TextBlock.create());
+      } else if (type === SvgBlock.type) {
+        this.droppedTags.push(SvgBlock.create()); // ✅ Handle SVG drop
       }
     },
 
