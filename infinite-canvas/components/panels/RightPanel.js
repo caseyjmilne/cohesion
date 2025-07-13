@@ -3,10 +3,11 @@ import StyleWidthControl from '../style_controls/StyleWidthControl.js';
 import StyleHeightControl from '../style_controls/StyleHeightControl.js';
 import StyleFlexBasisControl from '../style_controls/StyleFlexBasisControl.js';
 import StyleJustifyContentControl from '../style_controls/StyleJustifyContentControl.js';
+import StyleAlignItemsControl from '../style_controls/StyleAlignItemsControl.js'; // ✅ NEW
 import StyleDisplayControl from '../style_controls/StyleDisplayControl.js';
 import StylePositionControl from '../style_controls/StylePositionControl.js';
 import StyleBackgroundColorControl from '../style_controls/StyleBackgroundColorControl.js';
-import StyleBackgroundImageControl from '../style_controls/StyleBackgroundImageControl.js'; // ✅ NEW
+import StyleBackgroundImageControl from '../style_controls/StyleBackgroundImageControl.js';
 import TextContentControl from '../style_controls/TextContentControl.js';
 import StyleFontSizeControl from '../style_controls/StyleFontSizeControl.js';
 import StyleFontWeightControl from '../style_controls/StyleFontWeightControl.js';
@@ -24,10 +25,11 @@ export default {
     StyleHeightControl,
     StyleFlexBasisControl,
     StyleJustifyContentControl,
+    StyleAlignItemsControl, // ✅ REGISTERED
     StyleDisplayControl,
     StylePositionControl,
     StyleBackgroundColorControl,
-    StyleBackgroundImageControl, // ✅ REGISTERED
+    StyleBackgroundImageControl,
     TextContentControl,
     StyleFontSizeControl,
     StyleFontWeightControl,
@@ -67,6 +69,7 @@ export default {
         <PanelSection label="Flexbox">
           <StyleFlexBasisControl />
           <StyleJustifyContentControl />
+          <StyleAlignItemsControl /> <!-- ✅ ADDED -->
         </PanelSection>
 
         <PanelSection label="Background">
