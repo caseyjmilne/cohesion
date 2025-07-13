@@ -1,13 +1,13 @@
 import { inject, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 
-import ElementBlock from './components/user_components/Element.js';
-import TextBlock from './components/user_components/Text.js';
-import SvgBlock from './components/user_components/Svg.js'; // ✅ Add more blocks here as needed
+import ElementBlock from './user_components/Element.js';
+import TextBlock   from './user_components/Text.js';
+import SvgBlock    from './user_components/Svg.js';
 
 const blockMap = {
   [ElementBlock.type]: ElementBlock,
-  [TextBlock.type]: TextBlock,
-  [SvgBlock.type]: SvgBlock,
+  [TextBlock.type]:   TextBlock,
+  [SvgBlock.type]:    SvgBlock,
 };
 
 export default {
@@ -18,6 +18,9 @@ export default {
   setup(props) {
     const makeSelection = inject('makeSelection');
 
+    /* Use a <div> wrapper when the element tag is <svg> so we don’t nest SVG tags */
+    const wrapperTag = computed(() => (props.tag === 'svg' ? 'div' : props.tag));
+
     const appliedStyle = computed(() => ({
       minHeight: '40px',
       backgroundColor: 'rgb(150,150,150)',
@@ -27,6 +30,7 @@ export default {
     return {
       makeSelection,
       appliedStyle,
+      wrapperTag,
     };
   },
 
@@ -51,7 +55,7 @@ export default {
       e.stopPropagation();
 
       const draggedId = e.dataTransfer.getData('element-id');
-      const newType = e.dataTransfer.getData('text/plain');
+      const newType   = e.dataTransfer.getData('text/plain');
 
       if (draggedId && draggedId !== this.id) {
         this.$emit('element-drop', { targetId: this.id, draggedId });
@@ -59,10 +63,7 @@ export default {
         const block = blockMap[newType];
         if (block && typeof block.create === 'function') {
           const newElement = block.create();
-          this.$emit('add-child', {
-            parentId: this.id,
-            child: newElement,
-          });
+          this.$emit('add-child', { parentId: this.id, child: newElement });
         }
       }
     },
@@ -70,7 +71,7 @@ export default {
 
   template: `
     <component
-      :is="tag"
+      :is="wrapperTag"
       class="droppable-element"
       @mousedown="onMouseDown"
       @dragstart="onDragStart"
@@ -79,8 +80,18 @@ export default {
       @dragover.prevent
       :style="appliedStyle"
     >
-      {{ props?.text }}
 
+      <!-- Text block content -->
+      <template v-if="props?.text">
+        {{ props.text }}
+      </template>
+
+      <!-- SVG markup (rendered as real SVG) -->
+      <template v-if="props?.svg">
+        <div v-html="props.svg"></div>
+      </template>
+
+      <!-- Recursive children -->
       <ElementWrapper
         v-for="child in children || []"
         :key="child.id"

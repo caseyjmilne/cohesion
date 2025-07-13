@@ -4,7 +4,7 @@ import ElementBlock from './components/user_components/Element.js';
 import TextBlock from './components/user_components/Text.js';
 import SvgBlock from './components/user_components/Svg.js'; // ✅ NEW
 
-import ElementWrapper from './ElementWrapper.js';
+import ElementWrapper from './components/ElementWrapper.js';
 
 export default {
   components: { ElementWrapper },
