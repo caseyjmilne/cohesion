@@ -8,7 +8,7 @@
 <script type="module">
   import { inject, ref, provide, watch } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
   import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-  import CanvasWrapper from '<?= get_template_directory_uri(); ?>/infinite-canvas/CanvasWrapper.js';
+  import CanvasWrapper from '<?= get_template_directory_uri(); ?>/infinite-canvas/components/CanvasWrapper.js';
   import FooterPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/components/panels/FooterPanel.js';
   import HeaderPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/components/panels/HeaderPanel.js';
   import LeftPanel from '<?= get_template_directory_uri(); ?>/infinite-canvas/components/panels/LeftPanel.js';

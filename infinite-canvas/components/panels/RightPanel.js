@@ -7,10 +7,14 @@ import StyleJustifyContentControl from '../style_controls/StyleJustifyContentCon
 import StyleAlignItemsControl from '../style_controls/StyleAlignItemsControl.js';
 import StyleDisplayControl from '../style_controls/StyleDisplayControl.js';
 import StylePositionControl from '../style_controls/StylePositionControl.js';
+import StyleLeftControl from '../style_controls/StyleLeftControl.js';
+import StyleRightControl from '../style_controls/StyleRightControl.js';
+import StyleTopControl from '../style_controls/StyleTopControl.js';       // ✅ NEW
+import StyleBottomControl from '../style_controls/StyleBottomControl.js'; // ✅ NEW
 import StyleBackgroundColorControl from '../style_controls/StyleBackgroundColorControl.js';
 import StyleBackgroundImageControl from '../style_controls/StyleBackgroundImageControl.js';
 import TextContentControl from '../style_controls/TextContentControl.js';
-import SvgContentControl from '../style_controls/SvgContentControl.js'; // ✅ NEW
+import SvgContentControl from '../style_controls/SvgContentControl.js';
 import StyleFontSizeControl from '../style_controls/StyleFontSizeControl.js';
 import StyleFontWeightControl from '../style_controls/StyleFontWeightControl.js';
 import StyleColorControl from '../style_controls/StyleColorControl.js';
@@ -31,10 +35,14 @@ export default {
     StyleAlignItemsControl,
     StyleDisplayControl,
     StylePositionControl,
+    StyleLeftControl,
+    StyleRightControl,
+    StyleTopControl,       // ✅ REGISTERED
+    StyleBottomControl,    // ✅ REGISTERED
     StyleBackgroundColorControl,
     StyleBackgroundImageControl,
     TextContentControl,
-    SvgContentControl, // ✅ REGISTERED
+    SvgContentControl,
     StyleFontSizeControl,
     StyleFontWeightControl,
     StyleColorControl,
@@ -63,11 +71,18 @@ export default {
 
         <!-- Content Controls -->
         <TextContentControl v-if="selected.component === 'text'" />
-        <SvgContentControl v-if="selected.component === 'svg'" /> <!-- ✅ SVG ONLY -->
+        <SvgContentControl v-if="selected.component === 'svg'" />
 
         <PanelSection label="Layout">
           <StyleDisplayControl />
+        </PanelSection>
+
+        <PanelSection label="Position">
           <StylePositionControl />
+          <StyleTopControl />
+          <StyleBottomControl />
+          <StyleLeftControl />
+          <StyleRightControl />
         </PanelSection>
 
         <PanelSection label="Sizing">

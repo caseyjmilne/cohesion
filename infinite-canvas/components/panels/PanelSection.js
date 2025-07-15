@@ -9,7 +9,7 @@ export default defineComponent({
     },
     defaultOpen: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   setup(props) {

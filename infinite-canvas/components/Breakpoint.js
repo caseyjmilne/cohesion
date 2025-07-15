@@ -1,10 +1,10 @@
 import { inject } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 
-import ElementBlock from './components/user_components/Element.js';
-import TextBlock from './components/user_components/Text.js';
-import SvgBlock from './components/user_components/Svg.js'; // ✅ NEW
+import ElementBlock from './user_components/Element.js';
+import TextBlock from './user_components/Text.js';
+import SvgBlock from './user_components/Svg.js'; // ✅ NEW
 
-import ElementWrapper from './components/ElementWrapper.js';
+import ElementWrapper from './ElementWrapper.js';
 
 export default {
   components: { ElementWrapper },
