@@ -2,7 +2,8 @@ import { inject } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 
 import ElementBlock from './user_components/Element.js';
 import TextBlock from './user_components/Text.js';
-import SvgBlock from './user_components/Svg.js'; // ✅ NEW
+import SvgBlock from './user_components/Svg.js';
+import AnchorBlock from './user_components/Anchor.js';
 
 import ElementWrapper from './ElementWrapper.js';
 
@@ -30,7 +31,9 @@ export default {
       } else if (type === TextBlock.type) {
         this.droppedTags.push(TextBlock.create());
       } else if (type === SvgBlock.type) {
-        this.droppedTags.push(SvgBlock.create()); // ✅ Handle SVG drop
+        this.droppedTags.push(SvgBlock.create());
+      } else if (type === AnchorBlock.type) {
+        this.droppedTags.push(AnchorBlock.create());
       }
     },
 
