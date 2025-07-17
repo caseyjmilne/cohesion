@@ -9,8 +9,8 @@ import StyleDisplayControl from '../style_controls/StyleDisplayControl.js';
 import StylePositionControl from '../style_controls/StylePositionControl.js';
 import StyleLeftControl from '../style_controls/StyleLeftControl.js';
 import StyleRightControl from '../style_controls/StyleRightControl.js';
-import StyleTopControl from '../style_controls/StyleTopControl.js';       // ✅ NEW
-import StyleBottomControl from '../style_controls/StyleBottomControl.js'; // ✅ NEW
+import StyleTopControl from '../style_controls/StyleTopControl.js';
+import StyleBottomControl from '../style_controls/StyleBottomControl.js';
 import StyleBackgroundColorControl from '../style_controls/StyleBackgroundColorControl.js';
 import StyleBackgroundImageControl from '../style_controls/StyleBackgroundImageControl.js';
 import TextContentControl from '../style_controls/TextContentControl.js';
@@ -22,6 +22,7 @@ import StyleFontFamilyControl from '../style_controls/StyleFontFamilyControl.js'
 import StyleGapControl from '../style_controls/StyleGapControl.js';
 import StylePaddingControl from '../style_controls/StylePaddingControl.js';
 import StyleMarginControl from '../style_controls/StyleMarginControl.js';
+import HrefControl from '../style_controls/HrefControl.js'; // ✅ NEW
 import PanelSection from './PanelSection.js';
 
 import { useDroppedTags } from '../../composables/useDroppedTags.js';
@@ -37,8 +38,8 @@ export default {
     StylePositionControl,
     StyleLeftControl,
     StyleRightControl,
-    StyleTopControl,       // ✅ REGISTERED
-    StyleBottomControl,    // ✅ REGISTERED
+    StyleTopControl,
+    StyleBottomControl,
     StyleBackgroundColorControl,
     StyleBackgroundImageControl,
     TextContentControl,
@@ -50,6 +51,7 @@ export default {
     StyleGapControl,
     StylePaddingControl,
     StyleMarginControl,
+    HrefControl, // ✅ REGISTERED
     PanelSection,
   },
 
@@ -72,6 +74,7 @@ export default {
         <!-- Content Controls -->
         <TextContentControl v-if="selected.component === 'text'" />
         <SvgContentControl v-if="selected.component === 'svg'" />
+        <HrefControl v-if="selected.component === 'anchor'" /> <!-- ✅ ANCHOR ONLY -->
 
         <PanelSection label="Layout">
           <StyleDisplayControl />

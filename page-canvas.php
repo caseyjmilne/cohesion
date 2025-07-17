@@ -19,25 +19,10 @@
     setup() {
       const droppedTags = ref([]);
 
-      const saved = localStorage.getItem('cohesion_editor_contents');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed)) {
-            droppedTags.value = parsed;
-          }
-        } catch (e) {
-          console.warn('Invalid saved editor contents');
-        }
-      }
-
       provide('droppedTags', droppedTags);
 
       watch(droppedTags, (newVal) => {
         const json = JSON.stringify(newVal);
-
-        // Save locally
-        localStorage.setItem('cohesion_editor_contents', json);
 
         // Save remotely
         fetch('/wp-json/cohesion/v1/editor-save', {

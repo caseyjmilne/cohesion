@@ -36,3 +36,28 @@ require_once( get_template_directory() . '/lib/EditorSave.php' );
 \Cohesion\Rest\EditorSave::register();
 
 
+function mytheme_create_components_table() {
+  global $wpdb;
+
+  $table_name = $wpdb->prefix . 'cohesion_components';
+
+  $charset_collate = $wpdb->get_charset_collate();
+
+  $sql = "
+    CREATE TABLE IF NOT EXISTS $table_name (
+      id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+      type VARCHAR(50) NOT NULL,
+      tree JSON NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+    ) $charset_collate;
+  ";
+
+  require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+  dbDelta($sql);
+}
+add_action('after_switch_theme', 'mytheme_create_components_table');
+
+
+
